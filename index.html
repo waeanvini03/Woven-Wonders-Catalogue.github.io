@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>WOVEN WONDERS</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --primary-bg: #F8F4EF;
+            --primary-text: #3F3D56;
+
+            --silk-highlight: #B7004B;
+            --silk-accent-2: #FFC72C;
+            --silk-contrast: #007F9E;
+
+            --crochet-primary: #A16790; /* mauve primary accent */
+            --crochet-comfort-1: #A8C69F;
+            --crochet-comfort-2: #F8A49B;
+            --crochet-comfort-3: #6B5B95;
+
+            --card-bg: #fff;
+            --muted: #7a7786;
+            --glass: rgba(255,255,255,0.6);
+            --radius: 12px;
+            --shadow: 0 6px 18px rgba(63,61,86,0.08);
+        }
+
+        /* Base resets */
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+            color:var(--primary-text);
+            background: var(--primary-bg); /* single solid background color */
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            line-height:1.35;
+            padding-bottom:40px;
+        }
+
+        /* Header */
+        header{
+            max-width:1100px;
+            margin:28px auto;
+            padding:18px 20px;
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+            align-items:flex-start;
+        }
+        .brand{
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px,4vw,44px);
+            letter-spacing:1px;
+            color:var(--primary-text);
+            margin:0;
+        }
+        nav{
+            width:100%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+            flex-wrap:wrap;
+        }
+        .nav-links{
+            display:flex;
+            gap:12px;
+            align-items:center;
+        }
+        .nav-links a{
+            text-decoration:none;
+            color:var(--primary-text);
+            padding:8px 14px;
+            border-radius:10px;
+            font-weight:600;
+            transition:all .18s ease;
+            background:transparent;
+        }
+        .nav-links a.active,
+        .nav-links a[aria-current="true"]{
+            background: linear-gradient(90deg, rgba(194,0,85,0.08), rgba(194,0,85,0.03));
+            transform:translateY(-2px);
+        }
+        .nav-links a:hover{
+            /* soft tint from silk highlight for active/hover */
+            background: linear-gradient(90deg, rgba(194,0,85,0.06), rgba(194,0,85,0.03));
+            transform:translateY(-2px);
+        }
+
+        /* Layout wrapper */
+        main.container{
+            max-width:1100px;
+            margin:0 auto;
+            padding:0 20px;
+        }
+
+        section{
+            background:var(--primary-bg);
+            border-radius:14px;
+            padding:22px;
+            margin-bottom:20px;
+            box-shadow:var(--shadow);
+        }
+
+        /* Home (not used but styles retained) */
+        .home-quote{
+            font-family:'Playfair Display',serif;
+            color:var(--silk-contrast);
+            font-size:clamp(18px,2.4vw,24px);
+            margin:6px 0 18px 0;
+        }
+
+        .choices{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:18px;
+        }
+        .choice{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            padding:14px;
+            background:var(--card-bg);
+            border-radius:12px;
+            border:1px solid rgba(63,61,86,0.04);
+            cursor:pointer;
+            transition:transform .16s ease, box-shadow .16s ease;
+            text-decoration:none;
+            color:inherit;
+        }
+        .choice:hover{ transform:translateY(-6px); box-shadow:0 12px 28px rgba(63,61,86,0.06); }
+        .choice .thumb{
+            width:84px;
+            height:64px;
+            border-radius:10px;
+            overflow:hidden;
+            flex:0 0 84px;
+            display:block;
+            background:#F6EFEA;
+            border:1px solid rgba(63,61,86,0.03);
+        }
+        .choice .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+        .choice h4{margin:0;font-weight:700;font-size:18px;}
+        .choice p{margin:0;color:var(--muted);font-size:13px;}
+
+        /* Section headings */
+        .section-heading{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:12px;
+            margin-bottom:12px;
+        }
+        .section-heading h2{margin:0;font-family:'Playfair Display',serif;font-size:20px;}
+
+        /* Product grid */
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:14px;
+            margin-top:12px;
+        }
+        .card{
+            background:var(--card-bg);
+            border-radius:12px;
+            padding:12px;
+            display:flex;
+            gap:12px;
+            align-items:center;
+            border:1px solid rgba(63,61,86,0.04);
+            cursor:pointer;
+            transition:transform .14s ease, box-shadow .14s ease;
+        }
+        .card:hover{transform:translateY(-6px); box-shadow:0 12px 34px rgba(63,61,86,0.07);}
+        .card .img{
+            width:96px;
+            height:72px;
+            flex:0 0 96px;
+            border-radius:10px;
+            overflow:hidden;
+            border:1px solid rgba(63,61,86,0.03);
+            background:#F7F2F0; /* soft image frame tint */
+        }
+        .card .img img{width:100%;height:100%;object-fit:cover;display:block}
+        .card .meta{display:flex;flex-direction:column;gap:6px}
+        .product-title{font-weight:600;color:var(--primary-text)}
+        .product-price{color:var(--muted);font-weight:600}
+
+        /* Uniform section quote styling */
+        .section-quote{
+            font-family:'Playfair Display',serif;
+            font-size:18px; /* uniform size for crochet and silk quotes */
+            margin-bottom:10px;
+            color:var(--primary-text);
+            opacity:0.95;
+        }
+
+        /* Crochet styling: apply accent colors inside crochet section */
+        #crochet-section{ --accent: var(--crochet-primary); }
+        #crochet-section .section-heading h2{ color:var(--crochet-comfort-3); }
+        #crochet-section .card{ border-left:4px solid rgba(152,187,143,0.28); } /* crochet-comfort-1 tint */
+        #crochet-section .product-price{ color:var(--crochet-comfort-3); font-weight:700; }
+        #crochet-section .section-quote{ color:var(--crochet-primary); font-weight:600; }
+
+        /* Silk styling: apply silk colors inside silk section */
+        #silk-section{ --accent: var(--silk-highlight); }
+        #silk-section .section-heading h2{ color:var(--silk-highlight); }
+        #silk-section .card{ border-left:4px solid rgba(255,210,78,0.22); } /* silk-accent-2 tint */
+        #silk-section .product-price{ color:var(--silk-highlight); font-weight:700; }
+        #silk-section .section-quote{ color:var(--primary-text); font-weight:600; }
+
+        /* Enquiry */
+        .contact-list{ display:flex;flex-direction:column;gap:10px;font-size:15px }
+        .contact-item{ display:flex; gap:10px; align-items:center; }
+
+        /* Modal */
+        .modal{
+            position:fixed;
+            inset:0;
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:1200;
+            padding:28px;
+        }
+        .modal.visible{
+            display:flex;
+        }
+        .modal-backdrop{
+            position:absolute; inset:0; background:rgba(15,15,15,0.42); backdrop-filter: blur(6px);
+        }
+        .modal-card{
+            position:relative;
+            background:var(--card-bg);
+            border-radius:16px;
+            width:min(920px,96%);
+            max-height:86vh;
+            display:flex;
+            gap:18px;
+            overflow:hidden;
+            box-shadow:0 28px 70px rgba(63,61,86,0.18);
+        }
+        .modal-img{flex:0 0 46%; min-width:260px; background:#faf8f7; display:flex; align-items:center; justify-content:center;}
+        .modal-img img{width:100%;height:100%;object-fit:cover;display:block}
+        .modal-details{padding:20px; display:flex; flex-direction:column; gap:12px; flex:1;}
+        .modal-details h3{margin:0; font-family:'Playfair Display',serif; color:var(--primary-text)}
+        .modal-details .price{font-size:20px; font-weight:700; color:var(--silk-highlight)}
+        .modal-details p{color:var(--muted); margin:0 0 10px 0}
+        .modal-actions{margin-top:auto; display:flex; gap:10px}
+        .btn{
+            padding:10px 14px;
+            border-radius:10px;
+            border:0;
+            cursor:pointer;
+            font-weight:600;
+        }
+        .btn-primary{ background:var(--silk-highlight); color:white }
+        .btn-secondary{ background:var(--crochet-comfort-2); color:var(--primary-text) }
+
+        /* Blur page when modal open */
+        body.modal-open main, body.modal-open header{ filter: blur(6px) brightness(.9); pointer-events:none; user-select:none }
+
+        /* Responsive */
+        @media (max-width:900px){
+            .grid{ grid-template-columns:repeat(2,1fr) }
+            .choices{ grid-template-columns:1fr }
+            .modal-card{ flex-direction:column; max-height:94vh; }
+            .modal-img{ flex:0 0 auto; height:44vw; }
+        }
+        @media (max-width:560px){
+            header{ padding:12px 16px }
+            .grid{ grid-template-columns:1fr }
+            .nav-links a{ padding:8px 10px; font-size:14px }
+            .brand{ font-size:28px }
+            .card .img{ width:72px; height:56px; flex:0 0 72px }
+            .choice .thumb{ width:64px; height:48px; flex:0 0 64px }
+            .modal-details .price{ color:var(--silk-highlight) }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="brand">WOVEN WONDERS</h1>
+        <nav>
+            <div class="nav-links" role="navigation" aria-label="Main navigation">
+                <a href="#crochet-section">Crochet Creations</a>
+                <a href="#silk-section">Silk Thread Jewellery</a>
+                <a href="#enquiry-section">Enquiry</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Crochet Section -->
+        <section id="crochet-section" aria-labelledby="crochet-heading">
+            <div class="section-heading">
+                <h2 id="crochet-heading">Crochet Creations</h2>
+                <div class="section-actions" aria-hidden="true"></div>
+            </div>
+
+            <div class="section-quote">"Handcrafted loops, woven with time — cozy pieces for every moment."</div>
+
+            <div class="grid" aria-live="polite">
+                <!-- Repeat 6 product cards -->
+                <div class="card" data-title="Bow Keychain" data-price="₹80" data-img="20.jpg">
+                    <div class="img"><img src="20.jpg" alt="Bow Keychain"></div>
+                    <div class="meta">
+                        <div class="product-title">Bow Keychain</div>
+                        <div class="product-price">₹80</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Floral Butterfly Keychain" data-price="₹150" data-img="21.jpg">
+                    <div class="img"><img src="21.jpg" alt="Floral Butterfly Keychain"></div>
+                    <div class="meta">
+                        <div class="product-title">Floral Butterfly Keychain</div>
+                        <div class="product-price">₹150</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Victorian Rose Keychain" data-price="₹80" data-img="22.jpg">
+                    <div class="img"><img src="22.jpg" alt="Victorian Rose Keychain"></div>
+                    <div class="meta">
+                        <div class="product-title">Victorian Rose Keychain</div>
+                        <div class="product-price">₹80</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Sunny Bloom Keychain" data-price="₹120" data-img="23.jpg">
+                    <div class="img"><img src="23.jpg" alt="Sunny Bloom Keychain"></div>
+                    <div class="meta">
+                        <div class="product-title">Sunny Bloom Keychain</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Roselet Bloom Charm" data-price="₹120" data-img="26.png">
+                    <div class="img"><img src="26.png" alt="Roselet Bloom Charm"></div>
+                    <div class="meta">
+                        <div class="product-title">Roselet Bloom Charm</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Dainty Bow Phone Charm" data-price="₹60" data-img="24.png">
+                    <div class="img"><img src="24.png" alt="Dainty Bow Phone Charm"></div>
+                    <div class="meta">
+                        <div class="product-title">Dainty Bow Phone Charm</div>
+                        <div class="product-price">₹60</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Ivory Bloom Phone Charm" data-price="₹90" data-img="25.jpg">
+                    <div class="img"><img src="25.jpg" alt="Ivory Bloom Phone Charm"></div>
+                    <div class="meta">
+                        <div class="product-title">Ivory Bloom Phone Charm</div>
+                        <div class="product-price">₹90</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Rose Phone Charm" data-price="₹90" data-img="33.jpg">
+                    <div class="img"><img src="33.jpg" alt="Rose Phone Charm"></div>
+                    <div class="meta">
+                        <div class="product-title">Rose Phone Charm</div>
+                        <div class="product-price">₹90</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Tulip Scrunchie" data-price="₹200" data-img="27.jpg">
+                    <div class="img"><img src="27.jpg" alt="Tulip Scrunchie"></div>
+                    <div class="meta">
+                        <div class="product-title">Tulip Scrunchie</div>
+                        <div class="product-price">₹200</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Berry Bloom Scrunchie" data-price="₹200" data-img="30.jpg">
+                    <div class="img"><img src="30.jpg" alt="Berry Bloom Scrunchie"></div>
+                    <div class="meta">
+                        <div class="product-title">Berry Bloom Scrunchie</div>
+                        <div class="product-price">₹200</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Forever Rose" data-price="₹200" data-img="32.png">
+                    <div class="img"><img src="32.png" alt="Forever Rose"></div>
+                    <div class="meta">
+                        <div class="product-title">Forever Rose</div>
+                        <div class="product-price">₹200</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Midnight Blooms" data-price="₹200" data-img="31.jpg">
+                    <div class="img"><img src="31.jpg" alt="Midnight Blooms"></div>
+                    <div class="meta">
+                        <div class="product-title">Midnight Blooms</div>
+                        <div class="product-price">₹200</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Rose Hairclip" data-price="₹250" data-img="34.png">
+                    <div class="img"><img src="34.png" alt="Rose Hairclip"></div>
+                    <div class="meta">
+                        <div class="product-title">Rose Hairclip</div>
+                        <div class="product-price">₹250</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Blue Bloom Earrings" data-price="₹80" data-img="31.jpg">
+                    <div class="img"><img src="31.jpg" alt="Blue Bloom Earrings"></div>
+                    <div class="meta">
+                        <div class="product-title">Blue Bloom Earrings</div>
+                        <div class="product-price">₹80</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Cottage Core Heart Earrings" data-price="₹140" data-img="36.jpg">
+                    <div class="img"><img src="36.jpg" alt="Cottage Core Heart Earrings"></div>
+                    <div class="meta">
+                        <div class="product-title">Cottage Core Heart Earrings</div>
+                        <div class="product-price">₹140</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Rose Hairstick" data-price="₹150" data-img="37.jpg">
+                    <div class="img"><img src="37.jpg" alt="Rose Hairstick"></div>
+                    <div class="meta">
+                        <div class="product-title">Rose Hairstick</div>
+                        <div class="product-price">₹150</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Cherry Blossom Earrings" data-price="₹80" data-img="38.jpg">
+                    <div class="img"><img src="38.jpg" alt="Cherry Blossom Earrings"></div>
+                    <div class="meta">
+                        <div class="product-title">Cherry Blossom Earrings</div>
+                        <div class="product-price">₹80</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Silk Thread Jewellery Section -->
+        <section id="silk-section" aria-labelledby="silk-heading">
+            <div class="section-heading">
+                <h2 id="silk-heading">Silk Thread Jewellery</h2>
+                <div class="section-actions" aria-hidden="true"></div>
+            </div>
+
+            <div class="section-quote">"Threads of tradition, finished with a modern gleam — jewellery that whispers stories."</div>
+
+            <div class="grid" aria-live="polite">
+                <!-- 6 silk product cards -->
+                <div class="card" data-title="The Midnight Pearl Bracelet" data-price="₹80" data-img="1.jpg">
+                    <div class="img"><img src="1.jpg" alt="The Midnight Pearl Bracelet"></div>
+                    <div class="meta">
+                        <div class="product-title">The Midnight Pearl Bracelet</div>
+                        <div class="product-price">₹80</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Blue Harmony Bracelet" data-price="₹120" data-img="2.jpg">
+                    <div class="img"><img src="2.jpg" alt="Blue Harmony Bracelet"></div>
+                    <div class="meta">
+                        <div class="product-title">Blue Harmony Bracelet</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Pink Harmony Bracelet" data-price="₹120" data-img="3.jpg">
+                    <div class="img"><img src="3.jpg" alt="Pink Harmony Bracelet"></div>
+                    <div class="meta">
+                        <div class="product-title">Pink Harmony Bracelet</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Royal Bloom Jhumka" data-price="₹50" data-img="4.jpg">
+                    <div class="img"><img src="4.jpg" alt="Royal Bloom Jhumka"></div>
+                    <div class="meta">
+                        <div class="product-title">Royal Bloom Jhumka</div>
+                        <div class="product-price">₹50</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Ivory Bloom Jhumka" data-price="₹50" data-img="5.jpg">
+                    <div class="img"><img src="5.jpg" alt="Ivory Bloom Jhumka"></div>
+                    <div class="meta">
+                        <div class="product-title">Ivory Bloom Jhumka</div>
+                        <div class="product-price">₹50</div>
+                    </div>
+                </div>
+
+                
+                <div class="card" data-title="Forest Cross Bangles" data-price="₹80" data-img="6.jpg">
+                    <div class="img"><img src="6.jpg" alt="Forest Cross Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">Forest Cross Bangles</div>
+                        <div class="product-price">₹80</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="The Aurora Braid Bangles" data-price="₹120" data-img="7.jpg">
+                    <div class="img"><img src="7.jpg" alt="The Aurora Braid Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">The Aurora Braid Bangles</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="The Rhythm Wrap Bangles" data-price="₹120" data-img="8.jpg">
+                    <div class="img"><img src="8.jpg" alt="The Rhythm Wrap Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">The Rhythm Wrap Bangles</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Twilight Bangles" data-price="₹80" data-img="9.jpg">
+                    <div class="img"><img src="9.jpg" alt="Twilight Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">Twilight Bangles</div>
+                        <div class="product-price">₹80</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Tricolor Serenity Bangles" data-price="₹50/set" data-img="10.jpg">
+                    <div class="img"><img src="10.jpg" alt="Tricolor Serenity Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">Tricolor Serenity Bangles</div>
+                        <div class="product-price">₹50/set</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Twilight Bangle set" data-price="₹250" data-img="11.jpg">
+                    <div class="img"><img src="11.jpg" alt="Twilight Bangle set"></div>
+                    <div class="meta">
+                        <div class="product-title">Twilight Bangle set</div>
+                        <div class="product-price">₹250</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Festive Clover Bangles" data-price="₹150/piece" data-img="12.jpg">
+                    <div class="img"><img src="12.jpg" alt="Festive Clover Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">Festive Clover Bangles</div>
+                        <div class="product-price">₹150/piece</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Golden Amber Bangles" data-price="₹300" data-img="13.jpg">
+                    <div class="img"><img src="13.jpg" alt="Golden Amber Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">Golden Amber Bangles</div>
+                        <div class="product-price">₹300</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Crimson Bloom Bangles" data-price="₹120" data-img="14.jpg">
+                    <div class="img"><img src="14.jpg" alt="Crimson Bloom Bangles"></div>
+                    <div class="meta">
+                        <div class="product-title">Crimson Bloom Bangles</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Neelambari Bangle set" data-price="₹120" data-img="15.jpg">
+                    <div class="img"><img src="15.jpg" alt="Neelambari Bangle set"></div>
+                    <div class="meta">
+                        <div class="product-title">Neelambari Bangle set</div>
+                        <div class="product-price">₹120</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Sunheri set" data-price="₹180" data-img="16.jpg">
+                    <div class="img"><img src="16.jpg" alt="Sunheri Set"></div>
+                    <div class="meta">
+                        <div class="product-title">Sunheri Set</div>
+                        <div class="product-price">₹180</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Rainbow Silk Collection" data-price="₹25/pair" data-img="17.jpg">
+                    <div class="img"><img src="17.jpg" alt="Rainbow Silk Collection"></div>
+                    <div class="meta">
+                        <div class="product-title">Rainbow Silk Collection</div>
+                        <div class="product-price">₹25/pair</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="The Prism Set" data-price="₹20/pair" data-img="18.jpg">
+                    <div class="img"><img src="18.jpg" alt="The Prism Set"></div>
+                    <div class="meta">
+                        <div class="product-title">The Prism Set</div>
+                        <div class="product-price">₹20/pair</div>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Sister's Promise" data-price="₹50/piece" data-img="19.jpg">
+                    <div class="img"><img src="19.jpg" alt="Sister's Promise"></div>
+                    <div class="meta">
+                        <div class="product-title">Sister's Promise</div>
+                        <div class="product-price">₹50/piece</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enquiry -->
+        <section id="enquiry-section" aria-labelledby="enquiry-heading">
+            <div class="section-heading">
+                <h2 id="enquiry-heading">Enquiry</h2>
+            </div>
+
+            <div class="contact-list">
+                <div class="contact-item"><span>📍</span><div>Ponda, Goa</div></div>
+                <div class="contact-item"><span>📞</span><div>7058444156</div></div>
+                <div class="contact-item"><span>✉️</span><div>parsekarvini@gmail.com</div></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="product-modal" aria-hidden="true">
+        <div class="modal-backdrop" id="modal-backdrop"></div>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-img"><img id="modal-image" src="" alt=""></div>
+            <div class="modal-details">
+                <h3 id="modal-title">Product</h3>
+                <div class="price" id="modal-price">₹0</div>
+                <p id="modal-desc">Handcrafted item. Click below to enquire.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" id="enquire-btn">Enquire</button>
+                    <button class="btn btn-secondary" id="close-modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Delegate click on product cards to open modal
+        document.addEventListener('click', function (e) {
+            var card = e.target.closest('.card');
+            if (card) {
+                var title = card.getAttribute('data-title') || card.querySelector('.product-title')?.textContent || 'Product';
+                var price = card.getAttribute('data-price') || card.querySelector('.product-price')?.textContent || '';
+                var img = card.getAttribute('data-img') || card.querySelector('img')?.src || '';
+
+                var modal = document.getElementById('product-modal');
+                document.getElementById('modal-title').textContent = title;
+                document.getElementById('modal-price').textContent = price;
+                document.getElementById('modal-image').src = img;
+                document.getElementById('modal-image').alt = title;
+
+                modal.classList.add('visible');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+            }
+        });
+
+        // Close modal handlers
+        document.getElementById('close-modal').addEventListener('click', closeModal);
+        document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+
+        function closeModal() {
+            var modal = document.getElementById('product-modal');
+            modal.classList.remove('visible');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Simple anchor smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // update active link
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Enquire button now scrolls to the enquiry section and closes modal
+        document.getElementById('enquire-btn').addEventListener('click', function () {
+            closeModal();
+            var target = document.getElementById('enquiry-section');
+            if (target) {
+                // small delay to allow modal close visual state to update
+                setTimeout(function () {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // update nav active state
+                    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                    var link = document.querySelector('.nav-links a[href="#enquiry-section"]');
+                    if (link) link.classList.add('active');
+                }, 160);
+            }
+        });
+    </script>
+</body>
+</html>
